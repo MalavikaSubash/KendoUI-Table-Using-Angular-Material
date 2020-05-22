@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 export interface PeriodicElement {
   name: string;
@@ -28,9 +29,19 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 export class AppComponent {
   title = 'KendoUI-Table-Using-Angular-Material';
+
+  // columnList: string[] = ['Name', 'Weight', 'Symbol', 'Position'];
+  // selectedColumn: string[] = ['name', 'weight', 'symbol', 'position'];
+
   displayedColumns: string[] = ['name', 'weight', 'symbol', 'position'];
+  columns = new FormControl(this.displayedColumns);
+  columnList = this.displayedColumns;
   columnsToDisplay: string[] = this.displayedColumns.slice();
   data: PeriodicElement[] = ELEMENT_DATA;
+
+  columnSelected(event: any) {
+    this.columnsToDisplay = event.value;
+  }
 
   addColumn() {
     const randomColumn = Math.floor(Math.random() * this.displayedColumns.length);
